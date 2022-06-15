@@ -11,6 +11,14 @@
 		5738D7292859140F00482A03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7282859140F00482A03 /* SceneDelegate.swift */; };
 		5738D7302859141000482A03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5738D72F2859141000482A03 /* Assets.xcassets */; };
 		5738D7332859141000482A03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5738D7312859141000482A03 /* LaunchScreen.storyboard */; };
+		5738D73E2859B9EE00482A03 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D73D2859B9EE00482A03 /* SignInViewController.swift */; };
+		5738D7402859BA8B00482A03 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D73F2859BA8B00482A03 /* AddReminderViewController.swift */; };
+		5738D7422859BA9800482A03 /* ReminderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7412859BA9800482A03 /* ReminderListViewController.swift */; };
+		5738D7442859BACA00482A03 /* Persone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7432859BACA00482A03 /* Persone.swift */; };
+		5738D7472859BB8800482A03 /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7462859BB8800482A03 /* ReminderView.swift */; };
+		5738D7492859BC9900482A03 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7482859BC9900482A03 /* Reminder.swift */; };
+		5738D74C2859F00500482A03 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D74B2859F00500482A03 /* UIViewExtensions.swift */; };
+		5738D74E2859F29C00482A03 /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D74D2859F29C00482A03 /* UITextFieldExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +28,14 @@
 		5738D72F2859141000482A03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5738D7322859141000482A03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5738D7342859141000482A03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5738D73D2859B9EE00482A03 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		5738D73F2859BA8B00482A03 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
+		5738D7412859BA9800482A03 /* ReminderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListViewController.swift; sourceTree = "<group>"; };
+		5738D7432859BACA00482A03 /* Persone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persone.swift; sourceTree = "<group>"; };
+		5738D7462859BB8800482A03 /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
+		5738D7482859BC9900482A03 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		5738D74B2859F00500482A03 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		5738D74D2859F29C00482A03 /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,11 +70,51 @@
 			children = (
 				5738D7262859140F00482A03 /* AppDelegate.swift */,
 				5738D7282859140F00482A03 /* SceneDelegate.swift */,
+				5738D73B2859B97200482A03 /* Models */,
+				5738D73C2859B98000482A03 /* ViewControllers */,
+				5738D7452859BB4700482A03 /* Views */,
+				5738D74A2859EFD800482A03 /* Extensions */,
 				5738D72F2859141000482A03 /* Assets.xcassets */,
 				5738D7312859141000482A03 /* LaunchScreen.storyboard */,
 				5738D7342859141000482A03 /* Info.plist */,
 			);
 			path = "05 Birthday Reminder";
+			sourceTree = "<group>";
+		};
+		5738D73B2859B97200482A03 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5738D7432859BACA00482A03 /* Persone.swift */,
+				5738D7482859BC9900482A03 /* Reminder.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5738D73C2859B98000482A03 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5738D73D2859B9EE00482A03 /* SignInViewController.swift */,
+				5738D7412859BA9800482A03 /* ReminderListViewController.swift */,
+				5738D73F2859BA8B00482A03 /* AddReminderViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5738D7452859BB4700482A03 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5738D7462859BB8800482A03 /* ReminderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5738D74A2859EFD800482A03 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5738D74B2859F00500482A03 /* UIViewExtensions.swift */,
+				5738D74D2859F29C00482A03 /* UITextFieldExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,8 +208,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5738D7442859BACA00482A03 /* Persone.swift in Sources */,
+				5738D7402859BA8B00482A03 /* AddReminderViewController.swift in Sources */,
 				5738D7272859140F00482A03 /* AppDelegate.swift in Sources */,
+				5738D7472859BB8800482A03 /* ReminderView.swift in Sources */,
 				5738D7292859140F00482A03 /* SceneDelegate.swift in Sources */,
+				5738D7422859BA9800482A03 /* ReminderListViewController.swift in Sources */,
+				5738D73E2859B9EE00482A03 /* SignInViewController.swift in Sources */,
+				5738D74E2859F29C00482A03 /* UITextFieldExtensions.swift in Sources */,
+				5738D74C2859F00500482A03 /* UIViewExtensions.swift in Sources */,
+				5738D7492859BC9900482A03 /* Reminder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +359,7 @@
 				DEVELOPMENT_TEAM = P3BYVBK57Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "05 Birthday Reminder/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Birthday Reminder";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -321,6 +386,7 @@
 				DEVELOPMENT_TEAM = P3BYVBK57Z;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "05 Birthday Reminder/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Birthday Reminder";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

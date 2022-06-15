@@ -16,7 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = UINavigationController()
+        let reminderListViewController = ReminderListViewController()
+        window?.rootViewController = UINavigationController(rootViewController: reminderListViewController)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
