@@ -14,7 +14,7 @@
 		5738D73E2859B9EE00482A03 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D73D2859B9EE00482A03 /* SignInViewController.swift */; };
 		5738D7402859BA8B00482A03 /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D73F2859BA8B00482A03 /* AddReminderViewController.swift */; };
 		5738D7422859BA9800482A03 /* ReminderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7412859BA9800482A03 /* ReminderListViewController.swift */; };
-		5738D7442859BACA00482A03 /* Persone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7432859BACA00482A03 /* Persone.swift */; };
+		5738D7442859BACA00482A03 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7432859BACA00482A03 /* Person.swift */; };
 		5738D7472859BB8800482A03 /* ReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7462859BB8800482A03 /* ReminderView.swift */; };
 		5738D7492859BC9900482A03 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D7482859BC9900482A03 /* Reminder.swift */; };
 		5738D74C2859F00500482A03 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D74B2859F00500482A03 /* UIViewExtensions.swift */; };
@@ -31,7 +31,7 @@
 		5738D73D2859B9EE00482A03 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		5738D73F2859BA8B00482A03 /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
 		5738D7412859BA9800482A03 /* ReminderListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderListViewController.swift; sourceTree = "<group>"; };
-		5738D7432859BACA00482A03 /* Persone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persone.swift; sourceTree = "<group>"; };
+		5738D7432859BACA00482A03 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		5738D7462859BB8800482A03 /* ReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderView.swift; sourceTree = "<group>"; };
 		5738D7482859BC9900482A03 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
 		5738D74B2859F00500482A03 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		5738D73B2859B97200482A03 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				5738D7432859BACA00482A03 /* Persone.swift */,
+				5738D7432859BACA00482A03 /* Person.swift */,
 				5738D7482859BC9900482A03 /* Reminder.swift */,
 			);
 			path = Models;
@@ -208,7 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5738D7442859BACA00482A03 /* Persone.swift in Sources */,
+				5738D7442859BACA00482A03 /* Person.swift in Sources */,
 				5738D7402859BA8B00482A03 /* AddReminderViewController.swift in Sources */,
 				5738D7272859140F00482A03 /* AppDelegate.swift in Sources */,
 				5738D7472859BB8800482A03 /* ReminderView.swift in Sources */,
