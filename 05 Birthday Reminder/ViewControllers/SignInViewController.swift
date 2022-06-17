@@ -172,8 +172,8 @@ class SignInViewController: UIViewController {
     
     private func addBottomBorders() {
         view.layoutSubviews()
-        emailTextField.addBottomBorder(withColor: .systemGray3, borderWidth: 2)
-        passwordTextField.addBottomBorder(withColor: .systemGray3, borderWidth: 2)
+        emailTextField.addBorder(at: .bottom, color: .systemGray3, width: 2)
+        passwordTextField.addBorder(at: .bottom, color: .systemGray3, width: 2)
     }
     
     private func addShowHidePasswordToggle() {

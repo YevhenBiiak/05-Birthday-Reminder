@@ -17,7 +17,6 @@ private let showHidePasswordButton: UIButton = {
 }()
 
 extension UITextField {
-    
     func enablePasswordToggle(withColor color: UIColor? = nil) {
         showHidePasswordButton.addTarget(nil, action: #selector(togglePasswordView), for: .touchUpInside)
         showHidePasswordButton.tintColor = color

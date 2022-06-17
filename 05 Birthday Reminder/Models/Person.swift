@@ -12,15 +12,15 @@ struct Person: Codable {
     let name: String
     let age: UInt
     let birthDate: Date
-    let sex: String
+    let gender: String
     let instagram: String
     
-    init(photo: UIImage?, name: String, age: UInt, birthDate: Date, sex: String, instagram: String) {
+    init(photo: UIImage?, name: String, age: UInt, birthDate: Date, gender: String, instagram: String) {
         self.photo = photo?.pngData()
         self.name = name
         self.age = age
         self.birthDate = birthDate
-        self.sex = sex
+        self.gender = gender
         self.instagram = instagram
     }
 }

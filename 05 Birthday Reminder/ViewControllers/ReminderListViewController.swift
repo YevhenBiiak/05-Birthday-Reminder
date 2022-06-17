@@ -57,18 +57,19 @@ class ReminderListViewController: UIViewController {
             reminders = []
             return
         }
-        let birthday = Calendar.current.date(from: DateComponents(year: 1994, month: 9, day: 27))!
-        let person = Person(photo: nil, name: "Jhon", age: 27, birthDate: birthday, sex: "male", instagram: "cdd3")
-        let reminder = Reminder(person: person)
-        reminders?.append(reminder)
         
-//        let addReminderViewController = AddReminderViewController()
+//        let birthday = Calendar.current.date(from: DateComponents(year: 1994, month: 9, day: 27))!
+//        let person = Person(photo: nil, name: "Jhon", age: 27, birthDate: birthday, gender: "male", instagram: "cdd3")
+//        let reminder = Reminder(person: person)
+//        reminders?.append(reminder)
+        
+        let addReminderViewController = AddReminderViewController()
 //        addReminderViewController.modalPresentationStyle = .popover
 //        addReminderViewController.addCompletion = { [unowned self] person in
 //            let reminder = Reminder(person: person)
 //            reminders?.append(reminder)
 //        }
-//        present(addReminderViewController, animated: true)
+        present(addReminderViewController, animated: true)
     }
     
     // MARK: - Help methods

@@ -62,7 +62,7 @@ class ReminderView: UIView {
     private func setupViews() {
         addSubviews()
         addConstraints()
-        addLeftBorder(withColor: accentColor, borderWidth: 5)
+        addBorder(at: .left, color: accentColor, width: 5)
     }
     
     private func addSubviews() {
