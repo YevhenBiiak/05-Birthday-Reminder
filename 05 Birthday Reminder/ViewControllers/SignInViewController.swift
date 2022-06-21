@@ -7,81 +7,19 @@
 
 import UIKit
 
-let accentColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+let accentColor = #colorLiteral(red: 0.2030201852, green: 0.5886239409, blue: 0.8555393815, alpha: 1)
 
 class SignInViewController: UIViewController {
-    let logoLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 30)
-        label.textAlignment = .center
-        label.text = "Birthday Reminder"
-        return label
-    }()
     
-    let signInLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
-        label.text = "Sign In"
-        return label
-    }()
+    private var signInView: SignInView!
+    var signInCompletion: ((String, String) -> Void)?
     
-    let emailLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = accentColor
-        label.text = "Email"
-        return label
-    }()
-    
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.keyboardType = .emailAddress
-        textField.placeholder = "Enter email"
-        return textField
-    }()
-    
-    let passwordLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = accentColor
-        label.text = "Password"
-        return label
-    }()
-    
-    let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter password"
-        return textField
-    }()
-    
-    let faceIdLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Enable FaceId authorization"
-        return label
-    }()
-    
-    let faceIdSwitch: UISwitch = {
-        UISwitch()
-    }()
-    
-    let signInButton: UIButton = {
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = accentColor
-        config.title = "Sign In"
-        config.baseForegroundColor = .white
-        let button = UIButton(configuration: config)
-        button.addTarget(nil, action: #selector(signInButtonPressed), for: .touchUpInside)
-        return button
-    }()
-    
-    // MARK: - Properties
-    
-    var signInCompletion: (() -> Void)?
-    
-    // MARK: - Life cycle and override methods
+    // MARK: - Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupViews()
+        setupSignInView()
+        addKeyboardObservers()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -89,94 +27,62 @@ class SignInViewController: UIViewController {
         view.endEditing(true)
     }
     
-    // MARK: - Actions
+    deinit {
+        removeKeyboardObservers()
+    }
+    
+    // MARK: - Help methods with actions
+    
+    private func setupSignInView() {
+        signInView = SignInView(frame: view.frame)
+        view.addSubview(signInView)
+        signInView.signInButton.addTarget(nil, action: #selector(signInButtonPressed), for: .touchUpInside)
+    }
     
     @objc private func signInButtonPressed() {
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
-        guard !email.isEmpty, !password.isEmpty else { return }
-        
-        signInCompletion?()
+        guard let email = signInView.emailTextField.text, !email.isEmpty else {
+            showAlert(title: "Oops!", message: "Еnter your email")
+            return
+        }
+        guard let password = signInView.passwordTextField.text, !password.isEmpty else {
+            showAlert(title: "Oops!", message: " Password field is empty")
+            return
+        }
+
+        signInCompletion?(email, password)
         dismiss(animated: true)
     }
-    
-    // MARK: - Help methods
-    
-    private func setupViews() {
-        view.backgroundColor = .systemBackground
-        
-        addSubviews()
-        addConstraints()
-        addBottomBorders()
-        addShowHidePasswordToggle()
+}
+
+extension SignInViewController {
+    private func addKeyboardObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateViews(notification:)),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateViews(notification:)),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
     }
     
-    private func addSubviews() {
-        view.addSubview(logoLabel)
-        view.addSubview(signInLabel)
-        view.addSubview(emailLabel)
-        view.addSubview(emailTextField)
-        view.addSubview(passwordLabel)
-        view.addSubview(passwordTextField)
-        view.addSubview(faceIdLabel)
-        view.addSubview(faceIdSwitch)
-        view.addSubview(signInButton)
-    }
-    private func addConstraints() {
-        logoLabel.translatesAutoresizingMaskIntoConstraints = false
-        logoLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        logoLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
-        logoLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50).isActive = true
-        
-        signInLabel.translatesAutoresizingMaskIntoConstraints = false
-        signInLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        signInLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailLabel.topAnchor.constraint(equalTo: signInLabel.bottomAnchor, constant: 50).isActive = true
-        emailLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        emailLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        
-        emailTextField.translatesAutoresizingMaskIntoConstraints = false
-        emailTextField.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 15).isActive = true
-        emailTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        emailTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        emailTextField.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        
-        passwordLabel.translatesAutoresizingMaskIntoConstraints = false
-        passwordLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 35).isActive = true
-        passwordLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        passwordLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        passwordLabel.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor, constant: -15).isActive = true
-        
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        passwordTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        passwordTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        passwordTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        passwordTextField.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        
-        faceIdLabel.translatesAutoresizingMaskIntoConstraints = false
-        faceIdLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 50).isActive = true
-        faceIdLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        
-        faceIdSwitch.translatesAutoresizingMaskIntoConstraints = false
-        faceIdSwitch.centerYAnchor.constraint(equalTo: faceIdLabel.centerYAnchor).isActive = true
-        faceIdSwitch.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        
-        signInButton.translatesAutoresizingMaskIntoConstraints = false
-        signInButton.topAnchor.constraint(equalTo: faceIdLabel.bottomAnchor, constant: 50).isActive = true
-        signInButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
-        signInButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
-        signInButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+    private func removeKeyboardObservers() {
+        NotificationCenter.default.removeObserver(self)
     }
     
-    private func addBottomBorders() {
-        view.layoutSubviews()
-        emailTextField.addBorder(at: .bottom, color: .systemGray3, width: 2)
-        passwordTextField.addBorder(at: .bottom, color: .systemGray3, width: 2)
-    }
-    
-    private func addShowHidePasswordToggle() {
-        passwordTextField.enablePasswordToggle(withColor: accentColor.withAlphaComponent(0.7))
+    @objc private func updateViews(notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: Any],
+              let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else { return }
+        let bottomHeight = view.frame.height - signInView.signInButton.frame.origin.y + signInView.signInButton.frame.height - 100
+        if bottomHeight < keyboardFrame.height {
+            if notification.name == UIResponder.keyboardWillShowNotification {
+                view.frame.origin.y = -(keyboardFrame.height - bottomHeight)
+            } else {
+                view.frame.origin.y = 0
+            }
+        }
     }
 }

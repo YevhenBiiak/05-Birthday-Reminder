@@ -11,6 +11,8 @@ class ReminderView: UIView {
     let avatarImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "person.crop.circle.fill")
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
         image.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return image
     }()
@@ -57,12 +59,16 @@ class ReminderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Help func
+    override func layoutSubviews() {
+        avatarImage.layer.cornerRadius = (frame.height - 16) / 2
+        self.addBorder(to: .left, color: accentColor, width: 5)
+    }
+    
+    // MARK: - Help methods
     
     private func setupViews() {
         addSubviews()
         addConstraints()
-        addBorder(at: .left, color: accentColor, width: 5)
     }
     
     private func addSubviews() {
@@ -71,26 +77,17 @@ class ReminderView: UIView {
         addSubview(daysLeftLabel)
         addSubview(nextBirthdayDateLabel)
     }
+    
     private func addConstraints() {
         avatarImage.translatesAutoresizingMaskIntoConstraints = false
-        avatarImage.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        avatarImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
-        avatarImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
-        avatarImage.widthAnchor.constraint(equalTo: avatarImage.heightAnchor).isActive = true
-        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        titleLabel.leftAnchor.constraint(equalTo: avatarImage.rightAnchor, constant: 8).isActive = true
-        
         daysLeftLabel.translatesAutoresizingMaskIntoConstraints = false
-        daysLeftLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
-        daysLeftLabel.leftAnchor.constraint(equalTo: titleLabel.rightAnchor).isActive = true
-        daysLeftLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
-        daysLeftLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
         nextBirthdayDateLabel.translatesAutoresizingMaskIntoConstraints = false
-        nextBirthdayDateLabel.leftAnchor.constraint(equalTo: avatarImage.rightAnchor, constant: 8).isActive = true
-        nextBirthdayDateLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
-        nextBirthdayDateLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        
+        let width = frame.height - 16
+        addConstraints(H: "|-8-[avatarImage(\(width))]", V: "|-8-[avatarImage]-8-|")
+        addConstraints(H: "[avatarImage]-8-[titleLabel]", V: "|-8-[titleLabel]")
+        addConstraints(H: "[titleLabel]-[daysLeftLabel]-8-|", V: "|-8-[daysLeftLabel]")
+        addConstraints(H: "[avatarImage]-8-[nextBirthdayDateLabel]-8-|", V: "[nextBirthdayDateLabel]-8-|")
     }
 }

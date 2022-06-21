@@ -11,15 +11,13 @@ class ReminderListViewController: UIViewController {
     
     // MARK: - Properties
     
+    var authToken: String?
     let heightForRow = 70
     let rowSpacing = 15
+    var remindersLimit: Int { (Int(view.frame.height) - 120) / (heightForRow + rowSpacing) }
     
-    var remindersLimit: Int {
-        (Int(view.frame.height) - 120) / (heightForRow + rowSpacing)
-    }
-    var reminders: [Reminder]? {
+    var reminders: [Reminder] = [] {
         didSet {
-            saveData()
             updateReminders()
         }
     }
@@ -28,68 +26,65 @@ class ReminderListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadData()
         setupViews()
+        loadReminders()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if reminders == nil {
+        if authToken == nil {
             showSignInViewController()
         }
     }
     
-    // MARK: - Actions
-    
-    func showSignInViewController() {
-        let signInViewController = SignInViewController()
-        signInViewController.modalPresentationStyle = .fullScreen
-        signInViewController.signInCompletion = { [unowned self] in
-            reminders = []
-        }
-        present(signInViewController, animated: true)
-    }
-    
-    @objc func showAddReminderViewController() {
-        guard reminders!.count < remindersLimit else {
-            reminders = []
-            return
-        }
-        
-//        let birthday = Calendar.current.date(from: DateComponents(year: 1994, month: 9, day: 27))!
-//        let person = Person(photo: nil, name: "Jhon", age: 27, birthDate: birthday, gender: "male", instagram: "cdd3")
-//        let reminder = Reminder(person: person)
-//        reminders?.append(reminder)
-        
-        let addReminderViewController = AddReminderViewController()
-//        addReminderViewController.modalPresentationStyle = .popover
-//        addReminderViewController.addCompletion = { [unowned self] person in
-//            let reminder = Reminder(person: person)
-//            reminders?.append(reminder)
-//        }
-        present(addReminderViewController, animated: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        saveReminders()
     }
     
     // MARK: - Help methods
     
     private func setupViews() {
-        title = "Birthday list"
         view.backgroundColor = .systemBackground
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddReminderViewController))
-        navigationItem.rightBarButtonItem?.tintColor = accentColor
+        title = "Birthday list"
+        navigationItem.backButtonTitle = "cancel"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showEditReminderViewController))
+        navigationController?.navigationBar.tintColor = accentColor
+    }
+    
+    private func showSignInViewController() {
+        let signInViewController = SignInViewController()
+        signInViewController.modalPresentationStyle = .fullScreen
+        signInViewController.signInCompletion = { [unowned self] email, password in
+            authorize(email: email, password: password)
+        }
+        present(signInViewController, animated: true)
+    }
+    
+    @objc private func showEditReminderViewController() {
+        guard reminders.count < remindersLimit else {
+            showAlert(title: "Sorry", message: "Limit of reminders is \(remindersLimit)")
+            return
+        }
+        
+        let editReminderViewController = EditReminderViewController()
+        editReminderViewController.editReminderCompletion = { [unowned self] person in
+            let reminder = Reminder(person: person)
+            reminders.append(reminder)
+        }
+        navigationController?.pushViewController(editReminderViewController, animated: true)
     }
     
     private func updateReminders() {
         view.subviews.forEach { $0.removeFromSuperview() }
 
-        for (index, reminder) in reminders!.enumerated() {
+        for (index, reminder) in reminders.enumerated() {
             let origin = CGPoint(x: 8, y: 120 + index * (heightForRow + rowSpacing))
             let size = CGSize(width: view.frame.width - 16.0, height: CGFloat(heightForRow))
             
             let reminderView = ReminderView(frame: CGRect(origin: origin, size: size))
+            reminderView.tag = index
             reminderView.reminder = reminder
             
             view.addSubview(reminderView)
@@ -98,8 +93,17 @@ class ReminderListViewController: UIViewController {
     
     // MARK: - Storage methods
     
-    private func loadData() {
-        let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
+    
+    private func authorize(email: String, password: String) {
+        authToken = "\(email) \(password)"
+        defaults.set(authToken, forKey: "authToken")
+    }
+    
+    private func loadReminders() {
+        if authToken == nil {
+            authToken = defaults.string(forKey: "authToken")
+        }
         guard let savedData = defaults.data(forKey: "reminders") else {
             return
         }
@@ -110,8 +114,7 @@ class ReminderListViewController: UIViewController {
         reminders = savedReminders
     }
     
-    private func saveData() {
-        let defaults = UserDefaults.standard
+    private func saveReminders() {
         let encoder = JSONEncoder()
         guard let savedData = try? encoder.encode(reminders) else {
             fatalError("Unable to encode reminders data.")

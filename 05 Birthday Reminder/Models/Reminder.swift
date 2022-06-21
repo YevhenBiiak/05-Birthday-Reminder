@@ -15,12 +15,12 @@ struct Reminder: Codable {
     let dayOfWeekForTheNextBirthday: String
     
     init(person: Person) {
-        self.person = person
         let calendar = Calendar.current
         let nextBirthday = calendar.date(byAdding: .year, value: Int(person.age) + 1, to: person.birthDate)!
+        self.person = person
         self.dayOfBirth = calendar.component(.day, from: person.birthDate)
-        self.monthOfBirth = calendar.monthSymbols[calendar.component(.month, from: person.birthDate)]
+        self.monthOfBirth = calendar.monthSymbols[calendar.component(.month, from: person.birthDate)-1]
         self.daysLeftToTheNextBirthday = Int(nextBirthday.timeIntervalSinceNow / ( 3600 * 24 ))
-        self.dayOfWeekForTheNextBirthday = calendar.weekdaySymbols[calendar.component(.weekday, from: nextBirthday)]
+        self.dayOfWeekForTheNextBirthday = calendar.weekdaySymbols[calendar.component(.weekday, from: nextBirthday)-1]
     }
 }

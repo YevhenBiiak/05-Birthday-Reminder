@@ -10,17 +10,22 @@ import UIKit
 struct Person: Codable {
     var photo: Data?
     let name: String
-    let age: UInt
+    let age: Int
     let birthDate: Date
     let gender: String
-    let instagram: String
+    let instagram: String?
     
-    init(photo: UIImage?, name: String, age: UInt, birthDate: Date, gender: String, instagram: String) {
+    init(photo: UIImage?, name: String, age: Int, birthDate: Date, gender: String, instagram: String?) {
         self.photo = photo?.pngData()
         self.name = name
         self.age = age
         self.birthDate = birthDate
         self.gender = gender
         self.instagram = instagram
+    }
+    
+    enum Gender: String, CaseIterable {
+        case male
+        case female
     }
 }
