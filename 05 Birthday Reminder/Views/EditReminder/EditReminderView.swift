@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import PhotosUI
 
 class EditReminderView: UIView {
-    let avatarImage: UIImageView = {
+    let photoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = .systemGray2
-        imageView.image = UIImage(systemName: "person.crop.circle.fill")
+        imageView.image = AppConstants.emptyPhoto
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
@@ -20,7 +21,7 @@ class EditReminderView: UIView {
     
     let addPhotoButton: UIButton = {
         var config: UIButton.Configuration = .plain()
-        config.baseForegroundColor = accentColor
+        config.baseForegroundColor = AppConstants.accentColor
         config.title = "Add photo"
         let button = UIButton(configuration: config)
         return button
@@ -28,7 +29,7 @@ class EditReminderView: UIView {
     
     let nameLabel: UILabel = {
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: accentColor
+            .foregroundColor: AppConstants.accentColor
         ]
         let attrString = NSAttributedString(string: "Name", attributes: attributes)
         let label = UILabel()
@@ -45,7 +46,7 @@ class EditReminderView: UIView {
     
     let birthDateLabel: UILabel = {
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: accentColor
+            .foregroundColor: AppConstants.accentColor
         ]
         let attrString = NSAttributedString(string: "Birth date", attributes: attributes)
         let label = UILabel()
@@ -62,7 +63,7 @@ class EditReminderView: UIView {
     
     let ageLabel: UILabel = {
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: accentColor
+            .foregroundColor: AppConstants.accentColor
         ]
         let attrString = NSAttributedString(string: "Age", attributes: attributes)
         let label = UILabel()
@@ -79,7 +80,7 @@ class EditReminderView: UIView {
     
     let genderLabel: UILabel = {
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: accentColor
+            .foregroundColor: AppConstants.accentColor
         ]
         let attrString = NSAttributedString(string: "Gender", attributes: attributes)
         let label = UILabel()
@@ -96,7 +97,7 @@ class EditReminderView: UIView {
     
     let instagramLabel: UILabel = {
         let attributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: accentColor
+            .foregroundColor: AppConstants.accentColor
         ]
         let attrString = NSAttributedString(string: "Instagram", attributes: attributes)
         let label = UILabel()
@@ -126,7 +127,13 @@ class EditReminderView: UIView {
         return toolbar
     }()
     
-    let photoLibraryPicker = UIImagePickerController()
+    let photoLibrary: PHPickerViewController = {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        config.filter = .images
+        let picker = PHPickerViewController(configuration: config)
+        return picker
+    }()
     
     let birthDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -173,7 +180,7 @@ class EditReminderView: UIView {
     
     private func addSubviews() {
         addSubview(addPhotoButton)
-        addSubview(avatarImage)
+        addSubview(photoImage)
         addSubview(nameLabel)
         addSubview(nameTextField)
         addSubview(birthDateLabel)
@@ -188,7 +195,7 @@ class EditReminderView: UIView {
     }
     
     private func addConstraints() {
-        avatarImage.translatesAutoresizingMaskIntoConstraints = false
+        photoImage.translatesAutoresizingMaskIntoConstraints = false
         addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -202,8 +209,8 @@ class EditReminderView: UIView {
         instagramTextField.translatesAutoresizingMaskIntoConstraints = false
         deleteReminderButton.translatesAutoresizingMaskIntoConstraints = false
         
-        addConstraints(H: "|~[avatarImage(100)]~|", V: "|-80-[avatarImage(100)]")
-        addConstraints(H: "|~[addPhotoButton]~|", V: "[avatarImage]-8-[addPhotoButton]")
+        addConstraints(H: "|~[photoImage(100)]~|", V: "|-80-[photoImage(100)]")
+        addConstraints(H: "|~[addPhotoButton]~|", V: "[photoImage]-8-[addPhotoButton]")
         addConstraints(H: "|-40-[nameLabel]-40-|", V: "[addPhotoButton]-25-[nameLabel]")
         addConstraints(H: "|-40-[nameTextField]-40-|", V: "[nameLabel]-15-[nameTextField]")
         addConstraints(H: "|-40-[birthDateLabel]-40-|", V: "[nameTextField]-35-[birthDateLabel]")

@@ -25,7 +25,7 @@ class SignInView: UIView {
     
     let emailLabel: UILabel = {
         let label = UILabel()
-        label.textColor = accentColor
+        label.textColor = AppConstants.accentColor
         label.text = "Email"
         return label
     }()
@@ -39,7 +39,7 @@ class SignInView: UIView {
     
     let passwordLabel: UILabel = {
         let label = UILabel()
-        label.textColor = accentColor
+        label.textColor = AppConstants.accentColor
         label.text = "Password"
         return label
     }()
@@ -62,7 +62,7 @@ class SignInView: UIView {
     
     let signInButton: UIButton = {
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = accentColor
+        config.baseBackgroundColor = AppConstants.accentColor
         config.title = "Sign In"
         config.baseForegroundColor = .white
         let button = UIButton(configuration: config)
@@ -134,6 +134,6 @@ class SignInView: UIView {
     }
     
     private func addShowHidePasswordToggle() {
-        passwordTextField.enablePasswordToggle(withColor: accentColor.withAlphaComponent(0.7))
+        passwordTextField.enablePasswordToggle(withColor: AppConstants.accentColor.withAlphaComponent(0.7))
     }
 }

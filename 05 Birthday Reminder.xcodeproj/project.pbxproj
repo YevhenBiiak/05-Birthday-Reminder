@@ -22,6 +22,7 @@
 		5738D753285F212100482A03 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D752285F212100482A03 /* SignInView.swift */; };
 		5738D75B286084DD00482A03 /* UIViewControler+showAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D75A286084DD00482A03 /* UIViewControler+showAlert.swift */; };
 		57662DA92860DF58004ED5E8 /* EditReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57662DA82860DF58004ED5E8 /* EditReminderView.swift */; };
+		57727BAE2863159000EFBAF0 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57727BAD2863159000EFBAF0 /* AppConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		5738D752285F212100482A03 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		5738D75A286084DD00482A03 /* UIViewControler+showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControler+showAlert.swift"; sourceTree = "<group>"; };
 		57662DA82860DF58004ED5E8 /* EditReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReminderView.swift; sourceTree = "<group>"; };
+		57727BAD2863159000EFBAF0 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			children = (
 				5738D7432859BACA00482A03 /* Person.swift */,
 				5738D7482859BC9900482A03 /* Reminder.swift */,
+				57727BAD2863159000EFBAF0 /* AppConstants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -109,7 +112,7 @@
 		5738D7452859BB4700482A03 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5738D754285F306700482A03 /* SignInViews */,
+				5738D754285F306700482A03 /* SignIn */,
 				5738D75728607B1800482A03 /* ReminderList */,
 				57662DA72860DEFD004ED5E8 /* EditReminder */,
 			);
@@ -126,12 +129,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		5738D754285F306700482A03 /* SignInViews */ = {
+		5738D754285F306700482A03 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
 				5738D752285F212100482A03 /* SignInView.swift */,
 			);
-			path = SignInViews;
+			path = SignIn;
 			sourceTree = "<group>";
 		};
 		5738D75728607B1800482A03 /* ReminderList */ = {
@@ -252,6 +255,7 @@
 				5738D74E2859F29C00482A03 /* UITextFieldExtensions.swift in Sources */,
 				5738D74C2859F00500482A03 /* UIViewExtensions.swift in Sources */,
 				5738D753285F212100482A03 /* SignInView.swift in Sources */,
+				57727BAE2863159000EFBAF0 /* AppConstants.swift in Sources */,
 				5738D7492859BC9900482A03 /* Reminder.swift in Sources */,
 				5738D75B286084DD00482A03 /* UIViewControler+showAlert.swift in Sources */,
 			);

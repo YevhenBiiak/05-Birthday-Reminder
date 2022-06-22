@@ -8,12 +8,12 @@
 import UIKit
 
 class ReminderView: UIView {
-    let avatarImage: UIImageView = {
+    let photoImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(systemName: "person.crop.circle.fill")
+        image.tintColor = .systemGray2
+        image.image = AppConstants.emptyPhoto
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
-        image.tintColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
         return image
     }()
     
@@ -40,7 +40,7 @@ class ReminderView: UIView {
     var reminder: Reminder! {
         didSet {
             if let photo = reminder.person.photo {
-                avatarImage.image = UIImage(data: photo)
+                photoImage.image = UIImage(data: photo)
             }
             titleLabel.text = reminder.person.name
             daysLeftLabel.text = "\(reminder.daysLeftToTheNextBirthday) days left"
@@ -60,8 +60,8 @@ class ReminderView: UIView {
     }
     
     override func layoutSubviews() {
-        avatarImage.layer.cornerRadius = (frame.height - 16) / 2
-        self.addBorder(to: .left, color: accentColor, width: 5)
+        photoImage.layer.cornerRadius = (frame.height - 16) / 2
+        self.addBorder(to: .left, color: AppConstants.accentColor, width: 5)
     }
     
     // MARK: - Help methods
@@ -72,22 +72,22 @@ class ReminderView: UIView {
     }
     
     private func addSubviews() {
-        addSubview(avatarImage)
+        addSubview(photoImage)
         addSubview(titleLabel)
         addSubview(daysLeftLabel)
         addSubview(nextBirthdayDateLabel)
     }
     
     private func addConstraints() {
-        avatarImage.translatesAutoresizingMaskIntoConstraints = false
+        photoImage.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         daysLeftLabel.translatesAutoresizingMaskIntoConstraints = false
         nextBirthdayDateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let width = frame.height - 16
-        addConstraints(H: "|-8-[avatarImage(\(width))]", V: "|-8-[avatarImage]-8-|")
-        addConstraints(H: "[avatarImage]-8-[titleLabel]", V: "|-8-[titleLabel]")
+        addConstraints(H: "|-8-[photoImage(\(width))]", V: "|-8-[photoImage]-8-|")
+        addConstraints(H: "[photoImage]-8-[titleLabel]", V: "|-8-[titleLabel]")
         addConstraints(H: "[titleLabel]-[daysLeftLabel]-8-|", V: "|-8-[daysLeftLabel]")
-        addConstraints(H: "[avatarImage]-8-[nextBirthdayDateLabel]-8-|", V: "[nextBirthdayDateLabel]-8-|")
+        addConstraints(H: "[photoImage]-8-[nextBirthdayDateLabel]-8-|", V: "[nextBirthdayDateLabel]-8-|")
     }
 }

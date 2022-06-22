@@ -19,6 +19,7 @@ class ReminderListViewController: UIViewController {
     var reminders: [Reminder] = [] {
         didSet {
             updateReminders()
+            saveReminders()
         }
     }
     
@@ -37,11 +38,6 @@ class ReminderListViewController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        saveReminders()
-    }
-    
     // MARK: - Help methods
     
     private func setupViews() {
@@ -50,7 +46,7 @@ class ReminderListViewController: UIViewController {
         title = "Birthday list"
         navigationItem.backButtonTitle = "cancel"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showEditReminderViewController))
-        navigationController?.navigationBar.tintColor = accentColor
+        navigationController?.navigationBar.tintColor = AppConstants.accentColor
     }
     
     private func showSignInViewController() {

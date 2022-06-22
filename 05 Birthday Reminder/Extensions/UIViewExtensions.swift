@@ -30,34 +30,27 @@ extension UIView {
             }
         }
         
-        let namesH: [String] = getViewNames(from: H)
-        let namesV: [String] = getViewNames(from: V)
-        
         if H.starts(with: "|~[") && H.reversed().starts(with: "|~]") {
-            views[namesH[0]]!.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            let viewName = H.components(separatedBy: CharacterSet.letters.inverted).joined()
+            views[viewName]!.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             if let size = getSize(from: H) {
-                views[namesH[0]]!.widthAnchor.constraint(equalToConstant: size).isActive = true
+                views[viewName]!.widthAnchor.constraint(equalToConstant: size).isActive = true
             }
         } else if !H.isEmpty {
             activateConstraints(format: "H:" + H)
         }
         if V.starts(with: "|~[") && V.reversed().starts(with: "|~]") {
-            views[namesV[0]]!.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            let viewName = H.components(separatedBy: CharacterSet.letters.inverted).joined()
+            views[viewName]!.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             if let size = getSize(from: V) {
-                views[namesV[0]]!.widthAnchor.constraint(equalToConstant: size).isActive = true
+                views[viewName]!.widthAnchor.constraint(equalToConstant: size).isActive = true
             }
         } else if !V.isEmpty {
             activateConstraints(format: "V:" + V)
         }
         
-        func getViewNames(from: String) -> [String] {
-            let separated = from.split(separator: "[")
-            let filtered = separated.filter { $0.contains("]") }
-            let objNames = filtered.map { "\($0.split(separator: "]").first!.split(separator: "(").first!)" }
-            return objNames
-        }
-        func getSize(from: String) -> CGFloat? {
-            let strNum = from.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        func getSize(from str: String) -> CGFloat? {
+            let strNum = str.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
             if let size = Int(strNum) {
                 return CGFloat(size)
             }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class EditReminderViewController: UIViewController {
     
@@ -36,7 +37,7 @@ class EditReminderViewController: UIViewController {
         addActions()
         setDelegateToAllTextFields()
         setDataSourceAndDelegatToPickerViews()
-        editReminderView.photoLibraryPicker.delegate = self
+        editReminderView.photoLibrary.delegate = self
     }
     
     private func setDelegateToAllTextFields() {
@@ -64,7 +65,11 @@ class EditReminderViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func doneButtonPressed() {
-        let photo = editReminderView.avatarImage.image
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d, yyyy"
+        
+        let photo = editReminderView.photoImage.image != AppConstants.emptyPhoto ?
+            editReminderView.photoImage.image : nil
         
         guard let name = editReminderView.nameTextField.text, !name.isEmpty else {
             editReminderView.nameTextField.addBorder(to: .bottom, color: .red, width: 1)
@@ -82,9 +87,6 @@ class EditReminderViewController: UIViewController {
             editReminderView.genderTextField.addBorder(to: .bottom, color: .red, width: 1)
             return
         }
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d, yyyy"
         guard let birthDate = dateFormatter.date(from: date) else {
             editReminderView.birthDateTextField.addBorder(to: .bottom, color: .red, width: 1)
             return
@@ -93,13 +95,12 @@ class EditReminderViewController: UIViewController {
         let instagram = editReminderView.instagramTextField.text
         
         let person = Person(photo: photo, name: name, age: age, birthDate: birthDate, gender: gender, instagram: instagram)
-        
         editReminderCompletion?(person)
         navigationController?.popViewController(animated: true)
     }
     
     @objc private func addPhotoButtonPressed() {
-        present(editReminderView.photoLibraryPicker, animated: true)
+        present(editReminderView.photoLibrary, animated: true)
     }
     @objc private func deleteReminderButtonPressed() {
         navigationController?.popViewController(animated: true)
@@ -127,11 +128,18 @@ extension EditReminderViewController: UITextFieldDelegate {
     }
 }
 
-extension EditReminderViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        if let original = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            editReminderView.avatarImage.image = original
-            dismiss(animated: true)
+extension EditReminderViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        let itemProvider = results.first?.itemProvider
+
+        guard let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) else { return }
+        
+        itemProvider.loadObject(ofClass: UIImage.self) { [unowned self] image, _ in
+            if let image = image as? UIImage {
+                editReminderView.photoImage.image = image
+            }
         }
     }
 }
