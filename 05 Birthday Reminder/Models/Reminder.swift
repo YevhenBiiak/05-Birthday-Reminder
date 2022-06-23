@@ -15,7 +15,6 @@ struct Reminder: Codable {
     let dayOfWeekForTheNextBirthday: String
     
     init(person: Person) {
-        let calendar = Calendar.current
         let nextBirthday = calendar.date(byAdding: .year, value: Int(person.age) + 1, to: person.birthDate)!
         self.person = person
         self.dayOfBirth = calendar.component(.day, from: person.birthDate)

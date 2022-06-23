@@ -11,10 +11,11 @@ class ReminderListViewController: UIViewController {
     
     // MARK: - Properties
     
-    var authToken: String?
-    let heightForRow = 70
-    let rowSpacing = 15
-    var remindersLimit: Int { (Int(view.frame.height) - 120) / (heightForRow + rowSpacing) }
+    private var authToken: String?
+    private let storage = ReminderStorage()
+    private let heightForRow = 70
+    private let rowSpacing = 15
+    private var remindersLimit: Int { (Int(view.frame.height) - 120) / (heightForRow + rowSpacing) }
     
     var reminders: [Reminder] = [] {
         didSet {
@@ -27,8 +28,8 @@ class ReminderListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        signIn()
         setupViews()
-        loadReminders()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,7 +54,7 @@ class ReminderListViewController: UIViewController {
         let signInViewController = SignInViewController()
         signInViewController.modalPresentationStyle = .fullScreen
         signInViewController.signInCompletion = { [unowned self] email, password in
-            authorize(email: email, password: password)
+            sighUp(email: email, password: password)
         }
         present(signInViewController, animated: true)
     }
@@ -89,32 +90,22 @@ class ReminderListViewController: UIViewController {
     
     // MARK: - Storage methods
     
-    private let defaults = UserDefaults.standard
+    private func signIn() {
+        authToken = storage.signIn()
+        if authToken != nil {
+            loadReminders()
+        }
+    }
     
-    private func authorize(email: String, password: String) {
-        authToken = "\(email) \(password)"
-        defaults.set(authToken, forKey: "authToken")
+    private func sighUp(email: String, password: String) {
+        authToken = storage.signUp(email: email, password: password)
     }
     
     private func loadReminders() {
-        if authToken == nil {
-            authToken = defaults.string(forKey: "authToken")
-        }
-        guard let savedData = defaults.data(forKey: "reminders") else {
-            return
-        }
-        let decoder = JSONDecoder()
-        guard let savedReminders = try? decoder.decode([Reminder].self, from: savedData) else {
-            return
-        }
-        reminders = savedReminders
+        reminders = storage.load()
     }
     
     private func saveReminders() {
-        let encoder = JSONEncoder()
-        guard let savedData = try? encoder.encode(reminders) else {
-            fatalError("Unable to encode reminders data.")
-        }
-        defaults.set(savedData, forKey: "reminders")
+        storage.save(reminders: reminders)
     }
 }

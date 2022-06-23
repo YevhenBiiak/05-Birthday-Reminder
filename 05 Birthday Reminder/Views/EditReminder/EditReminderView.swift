@@ -14,7 +14,6 @@ class EditReminderView: UIView {
         imageView.tintColor = .systemGray2
         imageView.image = AppConstants.emptyPhoto
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -41,6 +40,7 @@ class EditReminderView: UIView {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Enter the name"
+        textField.tag = 0
         return textField
     }()
     
@@ -58,6 +58,7 @@ class EditReminderView: UIView {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Enter date of birth"
+        textField.tag = 1
         return textField
     }()
     
@@ -75,6 +76,7 @@ class EditReminderView: UIView {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Enter the age"
+        textField.tag = 2
         return textField
     }()
     
@@ -92,6 +94,7 @@ class EditReminderView: UIView {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Enter the gender"
+        textField.tag = 3
         return textField
     }()
     
@@ -109,6 +112,7 @@ class EditReminderView: UIView {
         let textField = UITextField()
         textField.backgroundColor = .systemBackground
         textField.placeholder = "Enter the instagram account"
+        textField.tag = 4
         return textField
     }()
     
@@ -139,7 +143,7 @@ class EditReminderView: UIView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.maximumDate = Date.now
+        datePicker.maximumDate = today
         return datePicker
     }()
     
@@ -160,6 +164,7 @@ class EditReminderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         addBorders()
+        photoImage.layer.cornerRadius = photoImage.frame.width / 2
     }
     
     // MARK: - Help methods

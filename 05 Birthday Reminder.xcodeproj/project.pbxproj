@@ -23,6 +23,7 @@
 		5738D75B286084DD00482A03 /* UIViewControler+showAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738D75A286084DD00482A03 /* UIViewControler+showAlert.swift */; };
 		57662DA92860DF58004ED5E8 /* EditReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57662DA82860DF58004ED5E8 /* EditReminderView.swift */; };
 		57727BAE2863159000EFBAF0 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57727BAD2863159000EFBAF0 /* AppConstants.swift */; };
+		57727BB02864500F00EFBAF0 /* ReminderStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57727BAF2864500F00EFBAF0 /* ReminderStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		5738D75A286084DD00482A03 /* UIViewControler+showAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewControler+showAlert.swift"; sourceTree = "<group>"; };
 		57662DA82860DF58004ED5E8 /* EditReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReminderView.swift; sourceTree = "<group>"; };
 		57727BAD2863159000EFBAF0 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		57727BAF2864500F00EFBAF0 /* ReminderStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				5738D7432859BACA00482A03 /* Person.swift */,
+				57727BAF2864500F00EFBAF0 /* ReminderStorage.swift */,
 				5738D7482859BC9900482A03 /* Reminder.swift */,
 				57727BAD2863159000EFBAF0 /* AppConstants.swift */,
 			);
@@ -248,6 +251,7 @@
 				57662DA92860DF58004ED5E8 /* EditReminderView.swift in Sources */,
 				5738D7402859BA8B00482A03 /* EditReminderViewController.swift in Sources */,
 				5738D7272859140F00482A03 /* AppDelegate.swift in Sources */,
+				57727BB02864500F00EFBAF0 /* ReminderStorage.swift in Sources */,
 				5738D7472859BB8800482A03 /* ReminderView.swift in Sources */,
 				5738D7292859140F00482A03 /* SceneDelegate.swift in Sources */,
 				5738D7422859BA9800482A03 /* ReminderListViewController.swift in Sources */,
