@@ -56,6 +56,8 @@ class EditReminderViewController: UIViewController {
             editReminderView.genderPicker.selectRow(genderRow, inComponent: 0, animated: false)
             
             editReminderView.instagramTextField.text = person.instagram
+        } else {
+            editReminderView.deleteReminderButton.isHidden = true
         }
     }
     
@@ -84,9 +86,6 @@ class EditReminderViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func doneButtonPressed() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d, yyyy"
-        
         let photo = editReminderView.photoImage.image != AppConstants.emptyPhoto ?
             editReminderView.photoImage.image : nil
         
@@ -106,10 +105,8 @@ class EditReminderViewController: UIViewController {
             editReminderView.genderTextField.addBorder(to: .bottom, color: .red, width: 1)
             return
         }
-        guard let birthDate = dateFormatter.date(from: date) else {
-            editReminderView.birthDateTextField.addBorder(to: .bottom, color: .red, width: 1)
-            return
-        }
+        
+        let birthDate = editReminderView.birthDatePicker.date
         
         let instagram = editReminderView.instagramTextField.text
         

@@ -87,7 +87,7 @@ class ReminderView: UIView {
         nextBirthdayDateLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let width = frame.height - 8
-        addConstraints(H: "|-8-[photoImage(\(width))]", V: "|-4-[photoImage]-4-|")
+        addConstraints(H: "|-16-[photoImage(\(width))]", V: "|-4-[photoImage]-4-|")
         addConstraints(H: "[photoImage]-8-[titleLabel]", V: "|-8-[titleLabel]")
         addConstraints(H: "[titleLabel]-[daysLeftLabel]-8-|", V: "|-8-[daysLeftLabel]")
         addConstraints(H: "[photoImage]-8-[nextBirthdayDateLabel]-8-|", V: "[nextBirthdayDateLabel]-8-|")

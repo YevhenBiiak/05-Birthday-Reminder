@@ -215,7 +215,7 @@ class EditReminderView: UIView {
         deleteReminderButton.translatesAutoresizingMaskIntoConstraints = false
         
         addConstraints(H: "|~[photoImage(100)]~|", V: "|-80-[photoImage(100)]")
-        addConstraints(H: "|~[addPhotoButton]~|", V: "[photoImage]-8-[addPhotoButton]")
+        addConstraints(H: "|~[addPhotoButton]~|", V: "[photoImage]-4-[addPhotoButton]")
         addConstraints(H: "|-40-[nameLabel]-40-|", V: "[addPhotoButton]-25-[nameLabel]")
         addConstraints(H: "|-40-[nameTextField]-40-|", V: "[nameLabel]-15-[nameTextField]")
         addConstraints(H: "|-40-[birthDateLabel]-40-|", V: "[nameTextField]-35-[birthDateLabel]")

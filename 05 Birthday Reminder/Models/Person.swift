@@ -16,7 +16,7 @@ struct Person: Codable {
     let instagram: String?
     
     init(photo: UIImage?, name: String, age: Int, birthDate: Date, gender: String, instagram: String?) {
-        self.photo = photo?.pngData()
+        self.photo = photo?.jpegData(compressionQuality: 1.0)
         self.name = name
         self.age = age
         self.birthDate = birthDate
