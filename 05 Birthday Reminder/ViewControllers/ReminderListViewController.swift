@@ -67,7 +67,7 @@ class ReminderListViewController: UIViewController {
         
         let editReminderViewController = EditReminderViewController()
         editReminderViewController.editReminderCompletion = { [unowned self] person in
-            let reminder = Reminder(person: person)
+            let reminder = Reminder(person: person!)
             reminders.append(reminder)
         }
         navigationController?.pushViewController(editReminderViewController, animated: true)
@@ -75,17 +75,34 @@ class ReminderListViewController: UIViewController {
     
     private func updateReminders() {
         view.subviews.forEach { $0.removeFromSuperview() }
-
         for (index, reminder) in reminders.enumerated() {
             let origin = CGPoint(x: 8, y: 120 + index * (heightForRow + rowSpacing))
             let size = CGSize(width: view.frame.width - 16.0, height: CGFloat(heightForRow))
             
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(reminderViewTapped(gesture:)))
             let reminderView = ReminderView(frame: CGRect(origin: origin, size: size))
+            reminderView.addGestureRecognizer(tapGesture)
             reminderView.tag = index
             reminderView.reminder = reminder
             
             view.addSubview(reminderView)
         }
+    }
+    
+    @objc private func reminderViewTapped(gesture: UIGestureRecognizer) {
+        let index = gesture.view!.tag
+        
+        let editReminderViewController = EditReminderViewController()
+        editReminderViewController.person = reminders[index].person
+        editReminderViewController.editReminderCompletion = { [unowned self] person in
+            if let person = person {
+                let reminder = Reminder(person: person)
+                reminders[index] = reminder
+            } else {
+                reminders.remove(at: index)
+            }
+        }
+        navigationController?.pushViewController(editReminderViewController, animated: true)
     }
     
     // MARK: - Storage methods

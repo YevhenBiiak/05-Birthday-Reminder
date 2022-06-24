@@ -1,4 +1,3 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/xcode,swift,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift,macos
 
@@ -40,6 +39,7 @@ Temporary Items
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## User settings
+MyPlayground.playground
 .swiftlint.yml
 xcuserdata/
 
@@ -78,7 +78,7 @@ playground.xcworkspace
 # Package.pins
 # Package.resolved
 # *.xcodeproj
-# Xcode automatically generates this directory with a .xcworkspacedata file and .swiftlint.yml
+# Xcode automatically generates this directory with a .xcworkspacedata file and MyPlayground.playground
 .swiftlint.yml
 xcuserdata
 # hence it is not needed unless you have added a package configuration file to your project

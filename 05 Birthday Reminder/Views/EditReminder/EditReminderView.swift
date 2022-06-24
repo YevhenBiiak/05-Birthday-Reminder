@@ -14,6 +14,7 @@ class EditReminderView: UIView {
         imageView.tintColor = .systemGray2
         imageView.image = AppConstants.emptyPhoto
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -143,7 +144,7 @@ class EditReminderView: UIView {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.preferredDatePickerStyle = .wheels
-        datePicker.maximumDate = today
+        datePicker.maximumDate = Date.now
         return datePicker
     }()
     
@@ -164,7 +165,6 @@ class EditReminderView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         addBorders()
-        photoImage.layer.cornerRadius = photoImage.frame.width / 2
     }
     
     // MARK: - Help methods

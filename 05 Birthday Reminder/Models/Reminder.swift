@@ -9,17 +9,29 @@ import UIKit
 
 struct Reminder: Codable {
     let person: Person
-    let dayOfBirth: Int
-    let monthOfBirth: String
-    let daysLeftToTheNextBirthday: Int
-    let dayOfWeekForTheNextBirthday: String
+    
+    var day: Int {
+        calendar.component(.day, from: person.birthDate)
+    }
+    
+    var month: String {
+        calendar.monthSymbols[calendar.component(.month, from: person.birthDate) - 1]
+    }
+    
+    var nextBirthday: Date {
+        calendar.date(byAdding: .year, value: person.age + 1, to: person.birthDate)!
+    }
+    
+    var daysLeft: Int {
+        let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: Date.now), to: nextBirthday).day
+        return days!
+    }
+    
+    var weekday: String {
+        calendar.weekdaySymbols[calendar.component(.weekday, from: nextBirthday)-1]
+    }
     
     init(person: Person) {
-        let nextBirthday = calendar.date(byAdding: .year, value: Int(person.age) + 1, to: person.birthDate)!
         self.person = person
-        self.dayOfBirth = calendar.component(.day, from: person.birthDate)
-        self.monthOfBirth = calendar.monthSymbols[calendar.component(.month, from: person.birthDate)-1]
-        self.daysLeftToTheNextBirthday = Int(nextBirthday.timeIntervalSinceNow / ( 3600 * 24 ))
-        self.dayOfWeekForTheNextBirthday = calendar.weekdaySymbols[calendar.component(.weekday, from: nextBirthday)-1]
     }
 }

@@ -46,6 +46,7 @@
 		57662DA82860DF58004ED5E8 /* EditReminderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReminderView.swift; sourceTree = "<group>"; };
 		57727BAD2863159000EFBAF0 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		57727BAF2864500F00EFBAF0 /* ReminderStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderStorage.swift; sourceTree = "<group>"; };
+		57727BB12865963C00EFBAF0 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,7 @@
 				5738D7452859BB4700482A03 /* Views */,
 				5738D74A2859EFD800482A03 /* Extensions */,
 				5738D72F2859141000482A03 /* Assets.xcassets */,
+				57727BB12865963C00EFBAF0 /* MyPlayground.playground */,
 				5738D7312859141000482A03 /* LaunchScreen.storyboard */,
 				5738D7342859141000482A03 /* Info.plist */,
 			);

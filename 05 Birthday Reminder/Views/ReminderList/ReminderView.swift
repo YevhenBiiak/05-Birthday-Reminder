@@ -13,6 +13,7 @@ class ReminderView: UIView {
         image.tintColor = .systemGray2
         image.image = AppConstants.emptyPhoto
         image.contentMode = .scaleAspectFill
+        image.layer.cornerRadius = 8
         image.clipsToBounds = true
         return image
     }()
@@ -25,12 +26,14 @@ class ReminderView: UIView {
     
     let daysLeftLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .systemGray
         label.text = "days left"
         return label
     }()
     
     let nextBirthdayDateLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .systemGray
         label.text = "subtitle"
         return label
     }()
@@ -43,8 +46,8 @@ class ReminderView: UIView {
                 photoImage.image = UIImage(data: photo)
             }
             titleLabel.text = reminder.person.name
-            daysLeftLabel.text = "\(reminder.daysLeftToTheNextBirthday) days left"
-            nextBirthdayDateLabel.text = "\(reminder.dayOfBirth) \(reminder.monthOfBirth) on \(reminder.dayOfWeekForTheNextBirthday)"
+            daysLeftLabel.text = "\(reminder.daysLeft) days left"
+            nextBirthdayDateLabel.text = "\(reminder.day) \(reminder.month) on \(reminder.weekday)"
         }
     }
     
@@ -60,7 +63,6 @@ class ReminderView: UIView {
     }
     
     override func layoutSubviews() {
-        photoImage.layer.cornerRadius = (frame.height - 16) / 2
         self.addBorder(to: .left, color: AppConstants.accentColor, width: 5)
     }
     
@@ -84,8 +86,8 @@ class ReminderView: UIView {
         daysLeftLabel.translatesAutoresizingMaskIntoConstraints = false
         nextBirthdayDateLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let width = frame.height - 16
-        addConstraints(H: "|-8-[photoImage(\(width))]", V: "|-8-[photoImage]-8-|")
+        let width = frame.height - 8
+        addConstraints(H: "|-8-[photoImage(\(width))]", V: "|-4-[photoImage]-4-|")
         addConstraints(H: "[photoImage]-8-[titleLabel]", V: "|-8-[titleLabel]")
         addConstraints(H: "[titleLabel]-[daysLeftLabel]-8-|", V: "|-8-[daysLeftLabel]")
         addConstraints(H: "[photoImage]-8-[nextBirthdayDateLabel]-8-|", V: "[nextBirthdayDateLabel]-8-|")

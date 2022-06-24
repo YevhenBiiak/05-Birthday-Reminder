@@ -11,7 +11,8 @@ import PhotosUI
 class EditReminderViewController: UIViewController {
     
     private var editReminderView: EditReminderView!
-    var editReminderCompletion: ((Person) -> Void)?
+    var person: Person?
+    var editReminderCompletion: ((Person?) -> Void)?
     
     // MARK: - Life cycle and override methods
     
@@ -38,6 +39,31 @@ class EditReminderViewController: UIViewController {
         setDelegateToAllTextFields()
         setDataSourceAndDelegatToPickerViews()
         editReminderView.photoLibrary.delegate = self
+        
+        // set edit fields if person is not nil
+        if let person = person {
+            if let photoData = person.photo {
+                editReminderView.photoImage.image = UIImage(data: photoData)
+            }
+            editReminderView.nameTextField.text = person.name
+            
+            editReminderView.birthDatePicker.date = person.birthDate
+            birthDateSelected(picker: editReminderView.birthDatePicker)
+            
+            editReminderView.genderTextField.text = person.gender
+            let genderRow = Person.Gender.allCases.firstIndex(of: Person.Gender(rawValue: person.gender)!)!
+            
+            editReminderView.genderPicker.selectRow(genderRow, inComponent: 0, animated: false)
+            
+            editReminderView.instagramTextField.text = person.instagram
+        }
+    }
+    
+    private func addActions() {
+        editReminderView.addPhotoButton.addTarget(nil, action: #selector(addPhotoButtonPressed), for: .touchUpInside)
+        editReminderView.deleteReminderButton.addTarget(nil, action: #selector(deleteReminderButtonPressed), for: .touchUpInside)
+        editReminderView.birthDatePicker.addTarget(nil, action: #selector(birthDateSelected(picker:)), for: .valueChanged)
+        editReminderView.toolbar.items?.last?.action = #selector(donePickerButtonPressed)
     }
     
     private func setDelegateToAllTextFields() {
@@ -46,13 +72,6 @@ class EditReminderViewController: UIViewController {
         editReminderView.ageTextField.delegate = self
         editReminderView.genderTextField.delegate = self
         editReminderView.instagramTextField.delegate = self
-    }
-    
-    private func addActions() {
-        editReminderView.addPhotoButton.addTarget(nil, action: #selector(addPhotoButtonPressed), for: .touchUpInside)
-        editReminderView.deleteReminderButton.addTarget(nil, action: #selector(deleteReminderButtonPressed), for: .touchUpInside)
-        editReminderView.birthDatePicker.addTarget(nil, action: #selector(birthDateSelected(picker:)), for: .valueChanged)
-        editReminderView.toolbar.items?.last?.action = #selector(donePickerButtonPressed)
     }
     
     private func setDataSourceAndDelegatToPickerViews() {
@@ -102,9 +121,12 @@ class EditReminderViewController: UIViewController {
     @objc private func addPhotoButtonPressed() {
         present(editReminderView.photoLibrary, animated: true)
     }
+    
     @objc private func deleteReminderButtonPressed() {
+        editReminderCompletion?(nil)
         navigationController?.popViewController(animated: true)
     }
+    
     @objc private func birthDateSelected(picker: UIDatePicker) {
         let date = picker.date
         let dateFormatter = DateFormatter()
@@ -113,9 +135,7 @@ class EditReminderViewController: UIViewController {
         let dateValue = dateFormatter.string(from: date)
         editReminderView.birthDateTextField.text = dateValue
         
-        print("date: ", date)
-        let age = calendar.dateComponents([.year], from: date, to: today).year! - 1
-        print("date: ", age)
+        let age = calendar.dateComponents([.year], from: date, to: Date.now).year!
         editReminderView.ageTextField.text = String(age)
         editReminderView.agePicker.selectRow(age, inComponent: 0, animated: false)
     }
@@ -182,17 +202,12 @@ extension EditReminderViewController: UIPickerViewDataSource, UIPickerViewDelega
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == editReminderView.agePicker {
+            let oldAgeValue = Int(editReminderView.ageTextField.text!)!
+            let ageDifference = row - oldAgeValue
             editReminderView.ageTextField.text = String(row)
             
             let pickerDate = editReminderView.birthDatePicker.date
-            var components = calendar.dateComponents([.day, .month], from: pickerDate)
-            let yearOfBirth = calendar.date(byAdding: .year, value: -row - 1, to: today)!
-            print()
-            components.year = calendar.dateComponents([.year], from: yearOfBirth).year
-            print(components.year)
-            if let newDate = calendar.date(from: components) {
-                print("age: ", row)
-                print("age: ", newDate)
+            if let newDate = calendar.date(byAdding: .year, value: -ageDifference, to: pickerDate) {
                 editReminderView.birthDatePicker.date = newDate
                 birthDateSelected(picker: editReminderView.birthDatePicker)
             }
