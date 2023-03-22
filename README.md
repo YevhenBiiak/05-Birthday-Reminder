@@ -1,7 +1,6 @@
 # 05-Birthday-Reminder
 (no Storyboard, no UITableView)
-
-## GIFs
+<br><br>
 
 <p align=center>
   <img src="https://user-images.githubusercontent.com/80542175/175559289-f6b55e25-d945-4976-8b10-e43308f4d538.gif" width=24%>
@@ -10,7 +9,9 @@
   <img src="https://user-images.githubusercontent.com/80542175/175559437-bad3b3ce-c45f-4029-825a-7c5424393d19.gif" width=24%>
 </p>
 
-| Used UI Elements | Additionally |
+## Used classes
+
+| UI Elements | Additionally |
 --- | ---
 | `UINavigationController` | `FileManager`
 | `UIAlertController` | `Data`
